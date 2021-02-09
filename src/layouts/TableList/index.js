@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Image, Modal, Spinner } from 'react-bootstrap'
+import { Row, Col, Image, Modal, Spinner, Badge } from 'react-bootstrap'
 import NoImage from '../../assets/img/no-image.png'
 
 
@@ -34,6 +34,8 @@ function TableList(props) {
                                     <Col xs="4"><Image src={item.Poster !== "N/A" ? item.Poster : NoImage} thumbnail onClick={(e) => showModal(e)} /></Col>
                                     <Col>
                                         <h4><strong><a href={`movie-detail/${item.imdbID}`}>{item.Title}</a></strong></h4>
+                                        <Badge pill variant="info">{ item.Type }</Badge>
+                                        <div className="spacer-20"></div>
                                         <div>{item.Year}</div>
                                     </Col>
                                 </Row>
@@ -44,7 +46,8 @@ function TableList(props) {
                                     <Col xs="4"><Image src={item.Poster !== "N/A" ? item.Poster : NoImage} thumbnail onClick={(event) => showModal(event)} /></Col>
                                     <Col>
                                         <h4><strong><a href={`movie-detail/${item.imdbID}`}>{item.Title}</a></strong></h4>
-                                        <div>{item.Type}</div>
+                                        <Badge pill variant="info">{ item.Type }</Badge>
+                                        <div className="spacer-20"></div>
                                         <div>{item.Year}</div>
                                     </Col>
                                 </Row>

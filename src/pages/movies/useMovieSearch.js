@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { MoviesApi } from '../../api/'
 import { setMovies } from '../../redux/movies/action'
 
@@ -24,7 +24,6 @@ function useMovieSearch(search, pageNumber, movies) {
         MoviesApi.getMoviesList(params)
         .then(async response => {
             if(response.data.Response === "True") {
-                // console.log(movies)
                 if(!movies) {
                     await setMovies(response.data.Search)
                     let totalPageTemp = response.data.totalResults / 10

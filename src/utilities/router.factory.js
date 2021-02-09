@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { PUBLIC_URL } from "../config/constants";
 
 const routeFactory = (routeObj, matchPath) => {
-  const currPath = (matchPath !== undefined) ? matchPath:PUBLIC_URL;
+  const currPath = (matchPath !== undefined) ? matchPath : PUBLIC_URL;
   return (
     <Switch>
       {

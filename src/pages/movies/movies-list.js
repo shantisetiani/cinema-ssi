@@ -10,6 +10,23 @@ const mapStateToProps = (state) => ({
     movies: state.movies.movies,
 });
 
+/* function useOutsideAlerter(ref) {
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                alert("You clicked outside of me!");
+            }
+        }
+
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [ref]);
+} */
+
 function MoviesList({ movies }) {
     const inputSearchRef = useRef()
     const [search, setSearch] = useState()
@@ -19,6 +36,7 @@ function MoviesList({ movies }) {
 
     const { loading, error, hasMore } = useMovieSearch(search, pageNumber, movies)
 
+    // Observe the last element of movie in movie list
     const observer = useRef()
     const lastMovieElementRef = useCallback((node) => {
         if(loading) return
@@ -37,6 +55,8 @@ function MoviesList({ movies }) {
         setSearch(inputSearchRef.current.value)
     }
 
+
+    // Handle search autocomplete with timeout
     let timeout;
     const handleKeyUp = (e) => {
         if (timeout) {
@@ -65,6 +85,23 @@ function MoviesList({ movies }) {
         setShowAutocomplete(false)
     }
 
+    // Close autocomplete box if click outside the element
+    const autoCompleteRef = useRef(null);
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (autoCompleteRef.current && !autoCompleteRef.current.contains(event.target)) {
+                setShowAutocomplete(false)
+            }
+        }
+
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [autoCompleteRef]);
+
     return (
         <Container>
             <h2>Movie List</h2>
@@ -72,9 +109,14 @@ function MoviesList({ movies }) {
                 <Col xs="12" sm="6" lg="4">
                     <Row>
                         <Col>
-                            <Form.Control type="input" placeholder="Search a movie title" ref={inputSearchRef} onKeyUp={handleKeyUp} />
+                            <Form.Control type="text"
+                                className="input-search"
+                                placeholder="Search a movie title"
+                                ref={inputSearchRef}
+                                onKeyUp={handleKeyUp}
+                            />
                             { showAutocomplete ?
-                                <div className="autocomplete-box">
+                                <div className="autocomplete-box" ref={autoCompleteRef}>
                                     { moviesAutocomplete ?
                                         moviesAutocomplete.map((item) => (
                                             <div key={item.imdbID}>
