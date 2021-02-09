@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { createBrowserHistory } from "history"
+import { Router, Switch } from "react-router-dom"
+
+import { PUBLIC_URL } from "./config/constants";
+import { Provider } from 'react-redux'
+import store from './reduxStore';
+
+import Routes from './Router.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const hist = createBrowserHistory();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router basename={PUBLIC_URL} history={hist}>
+        <Switch>
+          <Routes />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
