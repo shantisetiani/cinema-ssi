@@ -32,7 +32,6 @@ function MovieDetail() {
         };
         MoviesApi.getMovieDetail(params)
         .then(async response => {
-            console.log(response)
             await setData(response.data)
             setLoading(false)
         })
@@ -43,7 +42,7 @@ function MovieDetail() {
     }
 
     return (
-        <Container>
+        <Container data-testid="movie_detail_container">
             { data ?
                 <Row>
                     <Col xs="12" md="6" lg="4">
@@ -69,7 +68,7 @@ function MovieDetail() {
                         </Row>
                     </Col>
                     <Col>
-                        <h2><strong>{ data.Title }</strong></h2>
+                        <h2><strong data-testid="movie_title">{ data.Title }</strong></h2>
                         <Badge pill variant="info">{ data.Type }</Badge>
                         <div className="spacer-20"></div>
                         <DetailInfo label="Year" value={ data.Year } />
