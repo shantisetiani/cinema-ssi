@@ -3,12 +3,12 @@ import { Container, Row, Col, Image, Badge, Spinner } from 'react-bootstrap'
 import { MoviesApi } from '../../api/'
 
 
-const DetailInfo = ({ label, value }) => {
+const DetailInfo = ({ label, value, testId }) => {
     if(value) {
         return (
             <Row className="detail-row">
                 <Col xs="6" md="4" lg="2">{ label }</Col>
-                <Col className="detail-info">{ value }</Col>
+                <Col className="detail-info" data-testid={testId}>{ value }</Col>
             </Row>
         )
     }
@@ -16,7 +16,7 @@ const DetailInfo = ({ label, value }) => {
 }
 
 function MovieDetail() {
-    const [data, setData] = useState([])
+    const [data, setData] = useState({})
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -72,7 +72,7 @@ function MovieDetail() {
                         <Badge pill variant="info">{ data.Type }</Badge>
                         <div className="spacer-20"></div>
                         <DetailInfo label="Year" value={ data.Year } />
-                        <DetailInfo label="Released" value={ data.Released } />
+                        <DetailInfo label="Released" testId="movie_released" value={ data.Released } />
                         <DetailInfo label="Genre" value={ data.Genre } />
                         <DetailInfo label="Duration" value={ data.Runtime } />
                         <DetailInfo label="Actor" value={ data.Actors } />

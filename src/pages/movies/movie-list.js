@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 import { MoviesApi } from '../../api/'
-import { Container, Row, Col, Form, Button, Image, Modal } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import TableList from '../../layouts/TableList'
 import useMovieSearch from './useMovieSearch'
 import { setMovies } from '../../redux/movies/action'
@@ -9,23 +9,6 @@ import { setMovies } from '../../redux/movies/action'
 const mapStateToProps = (state) => ({
     movies: state.movies.movies,
 });
-
-/* function useOutsideAlerter(ref) {
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                alert("You clicked outside of me!");
-            }
-        }
-
-        // Bind the event listener
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [ref]);
-} */
 
 function MoviesList({ movies }) {
     const inputSearchRef = useRef()
@@ -103,7 +86,7 @@ function MoviesList({ movies }) {
     }, [autoCompleteRef]);
 
     return (
-        <Container>
+        <Container data-testid="movie_list_container">
             <h2>Movie List</h2>
             <Row>
                 <Col xs="12" sm="6" lg="4">
@@ -114,6 +97,7 @@ function MoviesList({ movies }) {
                                 placeholder="Search a movie title"
                                 ref={inputSearchRef}
                                 onKeyUp={handleKeyUp}
+                                data-testid="input_search"
                             />
                             { showAutocomplete ?
                                 <div className="autocomplete-box" ref={autoCompleteRef}>
@@ -127,7 +111,7 @@ function MoviesList({ movies }) {
                             : null }
                         </Col>
                         <Col>
-                            <Button onClick={searchMovie}>Search</Button>
+                            <Button onClick={searchMovie} data-testid="btn_Search">Search</Button>
                         </Col>
                     </Row>
                 </Col>

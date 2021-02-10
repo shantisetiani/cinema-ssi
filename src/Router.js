@@ -1,7 +1,7 @@
 import React from "react";
 
 import CinemaSSIApp from "./pages/index";
-import MovieList from "./pages/movies/movies-list";
+import MovieList from "./pages/movies/movie-list";
 import MovieDetail from "./pages/movies/movie-detail";
 
 import routeFactory from "./utilities/router.factory";

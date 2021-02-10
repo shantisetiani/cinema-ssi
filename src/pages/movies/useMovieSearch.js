@@ -34,10 +34,10 @@ function useMovieSearch(search, pageNumber, movies) {
                     await setMovies([...movies, ...response.data.Search])
                 }
                 setHasMore(response.data.Search.length > 0)
-                setLoading(false)
             }else {
                 alert(response.data.Error)
             }
+            setLoading(false)
         })
         .catch(err => {
             alert(err)
