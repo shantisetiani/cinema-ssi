@@ -21,7 +21,7 @@ function useMovieSearch(search, pageNumber, movies) {
             page: pageNumber
         };
 
-        MoviesApi.getMoviesList(params)
+        MoviesApi.getMovieList(params)
         .then(async response => {
             if(response.data.Response === "True") {
                 if(!movies) {
